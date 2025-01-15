@@ -17,7 +17,8 @@ class Server {
       this.key = "server.key";
       this.cert = "server.crt";
     }
-    else{
+    else
+    if(process.env.NODE_ENV == "production"){
       this.key = "/etc/ssl/server.key";
       this.cert = "/etc/ssl/server.crt";
     }
@@ -57,19 +58,20 @@ class Server {
     this.app.use(this.paths.auth, require("../routes/auth"));
     this.app.use(this.paths.homepage, require("../routes/homepage"));
     // Catch all requests that don't match any route
+    /*
     this.app.get("*", (req, res) => {
       res.sendFile(
         path.join(__dirname, "../../client/build/index.html")
       );
     });
+    */
   }
-/*
   listen() {
     this.app.listen(this.port, () => {
       console.log("Server running on port: ", this.port);
     });
   }
-*/
+
 
 listen() {
 
